@@ -1,5 +1,6 @@
 
 Assume we have 1,2,3,4,5  as numbers to assogin in the below image 
+
 ![alt text](image-1.png)
 
 # calcultate the sum of Vertical and horizontal row should be same
