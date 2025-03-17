@@ -108,3 +108,60 @@ insert into Student values ('Deepa','2002-2-2','MERN')
 insert into Student values ('Vaishali','2002-2-2','MERN')
 
 insert into Student values ('Deepa','2002-2-2','MERN')
+
+
+select * from sales.customers
+
+select city from sales.customers order by city desc
+
+SELECT DISTINCT city FROM SALES.customers ORDER BY CITY
+SELECT DISTINCT state  FROM SALES.customers ORDER BY state
+
+select city,state from sales.customers where state ='CA' 
+
+select city,state from sales.customers where state ='CA' order by city desc
+
+select distinct city,state from sales.customers 
+
+select distinct city,state from sales.customers order by state asc,city desc
+select distinct state,city from sales.customers order by state asc,city desc
+
+SELECT  CITY,STATE FROM SALES.CUSTOMERS ORDER BY STATE ASC,CITY desc
+
+SELECT  CITY,STATE FROM SALES.CUSTOMERS ORDER BY  STATE ASC,CITY DESC 
+
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP (1000) [Id]
+      ,[Name]
+      ,[Gender]
+      ,[Location]
+      ,[Email]
+      ,[salary]
+  FROM [Hexa_Mar_25].[dbo].[Employee]
+
+
+  select * from Employee order by Name
+
+  select * from employee order by Location
+ select * from employee order by Location,name 
+
+ select * from Employee order by email
+
+ select distinct email from employee order by email
+
+ --Top
+ select top 5 product_name,list_price from production.products
+ order by list_price desc
+
+
+ select count(*) from production.products 
+
+
+  select top 1 percent product_name,list_price from production.products
+ order by list_price desc
+
+
+ select top 3 product_name,list_price from production.products order by list_price desc
+
+  select top 3 WITH TIES  product_name,list_price from production.products order by list_price desc
