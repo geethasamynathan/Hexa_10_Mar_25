@@ -1,0 +1,154 @@
+# Answers to SQL Server Constraint Questions
+
+1. **What are the main types of constraints available in SQL Server?**
+   SQL Server supports five main types of constraints: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, and DEFAULT.
+
+2. **How do you create a PRIMARY KEY constraint when creating a new table?**
+   ```sql
+   CREATE TABLE Employees (
+       EmployeeID INT PRIMARY KEY,
+       FirstName VARCHAR(50),
+       LastName VARCHAR(50)
+   );
+   
+   -- Alternatively, as a table constraint:
+   CREATE TABLE Employees (
+       EmployeeID INT,
+       FirstName VARCHAR(50),
+       LastName VARCHAR(50),
+       CONSTRAINT PK_Employees PRIMARY KEY (EmployeeID)
+   );
+   ```
+
+3. **What's the difference between a UNIQUE constraint and a PRIMARY KEY constraint?**
+   A PRIMARY KEY constraint doesn't allow NULL values and can only be applied once per table, while a UNIQUE constraint allows NULL values (but only one NULL) and can be applied multiple times to different columns or column combinations in a table. Both enforce uniqueness.
+
+4. **How do you add a FOREIGN KEY constraint to an existing table?**
+   ```sql
+   ALTER TABLE Orders
+   ADD CONSTRAINT FK_Orders_Customers
+   FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
+   ```
+
+5. **Can you explain the purpose of CHECK constraints with an example?**
+   CHECK constraints enforce domain integrity by limiting the values that can be placed in a column.
+   ```sql
+   CREATE TABLE Products (
+       ProductID INT PRIMARY KEY,
+       ProductName VARCHAR(50),
+       Price DECIMAL(10,2),
+       CONSTRAINT CHK_Price CHECK (Price > 0)
+   );
+   ```
+   This ensures that all product prices are positive values.
+
+6. **What is a DEFAULT constraint and how do you implement it?**
+   A DEFAULT constraint provides a default value for a column when no value is specified.
+   ```sql
+   CREATE TABLE Orders (
+       OrderID INT PRIMARY KEY,
+       OrderDate DATETIME DEFAULT GETDATE(),
+       Status VARCHAR(20) DEFAULT 'Pending'
+   );
+   ```
+
+7. **How do you drop a constraint from a table?**
+   ```sql
+   ALTER TABLE TableName
+   DROP CONSTRAINT ConstraintName;
+   ```
+
+8. **What is the difference between column-level and table-level constraints?**
+   Column-level constraints are defined as part of the column definition and apply to that column only. Table-level constraints are defined separately from the columns and can apply to multiple columns (like composite keys).
+
+9. **How do you disable a constraint temporarily without dropping it?**
+   ```sql
+   ALTER TABLE TableName
+   NOCHECK CONSTRAINT ConstraintName;
+   
+   -- To re-enable:
+   ALTER TABLE TableName
+   CHECK CONSTRAINT ConstraintName;
+   ```
+
+10. **What happens when you try to delete a row that is referenced by a FOREIGN KEY constraint?**
+    By default, SQL Server will prevent the deletion and return an error. However, you can configure different behaviors using ON DELETE options such as CASCADE, SET NULL, or SET DEFAULT.
+
+11. **How do you create a composite PRIMARY KEY constraint?**
+    ```sql
+    CREATE TABLE OrderDetails (
+        OrderID INT,
+        ProductID INT,
+        Quantity INT,
+        CONSTRAINT PK_OrderDetails PRIMARY KEY (OrderID, ProductID)
+    );
+    ```
+
+12. **What are the performance implications of adding constraints to tables?**
+    Constraints can impact performance in several ways:
+    - PRIMARY KEY and UNIQUE constraints create indexes, which improve query performance but slow down inserts/updates
+    - CHECK constraints add validation overhead
+    - FOREIGN KEY constraints can slow down operations on both parent and child tables
+    - However, constraints prevent data inconsistencies which can lead to greater performance issues later
+
+13. **How do you add a CHECK constraint that references multiple columns?**
+    ```sql
+    ALTER TABLE Employees
+    ADD CONSTRAINT CHK_SalaryLevel
+    CHECK (Salary <= (BaseSalary * 3));
+    ```
+
+14. **What is the ON DELETE CASCADE option for FOREIGN KEY constraints?**
+    ON DELETE CASCADE automatically deletes rows from the child table when the corresponding rows in the parent table are deleted.
+    ```sql
+    ALTER TABLE Orders
+    ADD CONSTRAINT FK_Orders_Customers
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    ON DELETE CASCADE;
+    ```
+
+15. **How do you view all constraints defined on a table?**
+    ```sql
+    SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+    WHERE TABLE_NAME = 'YourTableName';
+    
+    -- For more details:
+    SELECT * FROM sys.objects
+    WHERE type_desc LIKE '%CONSTRAINT%'
+    AND parent_object_id = OBJECT_ID('YourTableName');
+    ```
+
+16. **What is the difference between NOCHECK and WITH CHECK options when creating constraints?**
+    NOCHECK means the constraint won't validate existing data, only new data. WITH CHECK (the default) validates all existing data against the constraint.
+
+17. **How do you create a UNIQUE constraint that allows NULL values?**
+    All UNIQUE constraints in SQL Server automatically allow NULL values (but only one NULL value per column). Simply create a standard UNIQUE constraint:
+    ```sql
+    ALTER TABLE Employees
+    ADD CONSTRAINT UQ_EmployeeEmail
+    UNIQUE (Email);
+    ```
+
+18. **What are the best practices for naming constraints in SQL Server?**
+    - Use a consistent naming convention
+    - Include the constraint type (PK, FK, UQ, etc.)
+    - Include the table name
+    - For foreign keys, include both parent and child table names
+    - Example: PK_Employees, FK_Orders_Customers, CHK_Product_Price
+
+19. **How do you modify an existing constraint?**
+    SQL Server doesn't support directly modifying constraints. You need to drop the existing constraint and create a new one:
+    ```sql
+    ALTER TABLE TableName
+    DROP CONSTRAINT ConstraintName;
+    
+    ALTER TABLE TableName
+    ADD CONSTRAINT ConstraintName [constraint definition];
+    ```
+
+20. **What is the difference between a FOREIGN KEY constraint and a referential integrity trigger?**
+    - FOREIGN KEY constraints are declarative and managed by SQL Server internally
+    - Triggers are procedural and require custom code
+    - FOREIGN KEY constraints are generally more efficient and easier to maintain
+    - Triggers provide more flexibility for complex business rules
+    - Triggers can handle situations that span multiple tables or require custom logic
