@@ -99,3 +99,74 @@ SELECT CONVERT(VARCHAR,GETDATE()) AS FORMATTEDDATE
 SELECT FORMAT(GETDATE(),'yyyy-MM-dd')
 
 select ISDATE('2025-03-45') as IsvalidDate
+
+--Joins
+
+Select * from tblDepartment
+SELECT * FROM tblEmployee
+
+
+SELECT e.Name,Gender,City,DepartmentId,d.Name 
+FROM tblEmployee e
+inner JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+
+SELECT e.Name,Gender,City,DepartmentId,d.Name 
+FROM tblEmployee e
+left JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+
+SELECT e.Name,Gender,City,DepartmentId,d.Name 
+FROM tblEmployee e
+right JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+
+SELECT d.Dept_Id,e.Name,d.Name 
+FROM tblEmployee e
+right JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+
+
+SELECT d.Dept_Id,e.Name,e.gender,e.city ,d.Name 
+FROM tblEmployee e
+full JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+
+select e.Name,e.gender,e.city,d.name
+from tblDepartment d
+cross join
+tblEmployee e
+
+create table Employee1
+(
+id int primary key,
+Name varchar(10),
+Managerid int null
+)
+
+insert into Employee1 values
+(1,'Poornima',null),
+(2,'Geethica',1),
+(3,'Manju Sri',1),
+(4,'Jerome',2),
+(5,'Nithyasri',3)
+
+SELECT * FROM Employee1
+SELECT E1.ID,E1.Name,e2.Name as ManagerName
+from Employee1 e1
+left join
+Employee1 e2 
+ON e1.Managerid=e2.id
+
+
+SELECT d.Name ,count(d.Dept_Id) AS No_Of_employees
+FROM tblEmployee e
+inner JOIN
+tblDepartment d 
+ON e.DepartmentId=d.Dept_Id
+GROUP BY D.Dept_Id,d.name
