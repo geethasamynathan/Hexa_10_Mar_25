@@ -1,0 +1,13 @@
+1. What is a subquery in SQL Server?
+2. What are the different types of subqueries in SQL Server?
+3. How does a correlated subquery work?
+4. What is the difference between a correlated subquery and a non-correlated subquery?
+5. Can we use ORDER BY in a subquery?
+6. What is the EXISTS clause in SQL Server?
+7. What is the difference between EXISTS and IN?
+8. How does NOT EXISTS work?
+9. What is the ANY operator in SQL Server?
+10. What is the ALL operator in SQL Server?
+11. What is the difference between ANY and ALL?
+12. Can we use EXISTS, ANY, and ALL together in a query?
+13. What are some performance considerations when using subqueries?
