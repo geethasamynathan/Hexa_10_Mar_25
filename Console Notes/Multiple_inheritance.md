@@ -158,3 +158,86 @@ customer.AddToCart("Laptop");
 customer.WriteReview("Laptop", "Good for the cost");
 Console.ReadLine();
 ```
+
+# Abstract  Class
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Abstract_Class_Demo
+{
+    public abstract class Employee
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+
+        public Employee(int id,string name)
+        {
+            this.Name = name;   
+            this.Id = id;
+        }
+        public abstract double CalculateSalary();
+
+        public void EmployeeInfo()
+        {
+            Console.WriteLine($"Id={Id} \nName={Name}");
+        }
+    }
+
+    public  class FullTimeEmployee:Employee
+    {
+
+        public double AnnualSalary { get; set; }
+
+        public FullTimeEmployee(int id, string name,double annualSalary):base(id,name)
+        {
+            this.AnnualSalary = annualSalary;
+            
+        }
+        public override double CalculateSalary()
+        {
+            return this.AnnualSalary / 12;
+        }
+    }
+
+    public class PartTimemeployee : Employee
+    {
+        public double HourlyRate { get; set; }
+        public int HoursWorked { get; set; }
+        public PartTimemeployee(int id, string name, double hourlyRate, int hoursWorked):base(id,name) 
+        {
+            this.HourlyRate = hourlyRate;
+            this.HoursWorked = hoursWorked;
+        }
+        public override double CalculateSalary()
+        {
+            return HoursWorked * HourlyRate;
+        }
+    }
+}
+
+```
+
+Program.cs
+
+```cs
+// See https://aka.ms/new-console-template for more information
+
+using Abstract_Class_Demo;
+Console.WriteLine("Full time Employee Info\n");
+Employee employee = new FullTimeEmployee(1,"Raja",890000);
+//FullTimeEmployee employee=new FullTimeEmployee(1,"Raja",7899990);
+employee.EmployeeInfo();
+Console.WriteLine($"Monthly Salary = {employee.CalculateSalary()}");
+
+//employee = new PartTimemeployee(2,"Peter",4000,300);
+Console.WriteLine("\nPart time Employee Info\n");
+employee.EmployeeInfo();
+Console.WriteLine($"Salary for Part time Employee {employee.CalculateSalary()}");
+  
+Console.ReadLine();
+
+```
