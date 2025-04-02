@@ -1,0 +1,20 @@
+What are the main types of constraints available in SQL Server?
+How do you create a PRIMARY KEY constraint when creating a new table?
+What's the difference between a UNIQUE constraint and a PRIMARY KEY constraint?
+How do you add a FOREIGN KEY constraint to an existing table?
+Can you explain the purpose of CHECK constraints with an example?
+What is a DEFAULT constraint and how do you implement it?
+How do you drop a constraint from a table?
+What is the difference between column-level and table-level constraints?
+How do you disable a constraint temporarily without dropping it?
+What happens when you try to delete a row that is referenced by a FOREIGN KEY constraint?
+How do you create a composite PRIMARY KEY constraint?
+What are the performance implications of adding constraints to tables?
+How do you add a CHECK constraint that references multiple columns?
+What is the ON DELETE CASCADE option for FOREIGN KEY constraints?
+How do you view all constraints defined on a table?
+What is the difference between NOCHECK and WITH CHECK options when creating constraints?
+How do you create a UNIQUE constraint that allows NULL values?
+What are the best practices for naming constraints in SQL Server?
+How do you modify an existing constraint?
+What is the difference between a FOREIGN KEY constraint and a referential integrity trigger?
