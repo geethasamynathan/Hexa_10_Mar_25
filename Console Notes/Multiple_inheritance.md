@@ -241,3 +241,120 @@ Console.WriteLine($"Salary for Part time Employee {employee.CalculateSalary()}")
 Console.ReadLine();
 
 ```
+# Polymorphism:
+-------------------------
+Function overloading 
+Function Overriding
+
+## Function Overloading :
+--------------------------------------
+A class contain more than one function with same name , but different argument list ,Different Number of argument and order of argument .But not return type of an Argument is Known Function Overloading .
+  ```cs
+  class calculator
+    {
+        public void Add(int x,int y)
+        {
+            Console.WriteLine(" Addition of two numbers = " +(x+y));
+        }
+        public void Add(int x, int y,int z)
+        {
+            Console.WriteLine(" Addition of three numbers = " + (x + y+z));
+        }
+        public void Add(float  x, float  y, int z)
+        {
+            Console.WriteLine(" Addition of three numbers = " + (x + y + z));
+        }
+    }
+    class FunctionOverloading_Demo
+    {
+        static void Main()
+        {
+            calculator obj = new calculator();
+            obj.Add(34, 56, 24);
+            obj.Add(354,67);
+            obj.Add(34.567f,34.4656f,500);
+            Console.ReadLine();
+        }
+    }
+}
+```
+## Function Overriding :
+---------------------------------
+
+Function overring happens between two different classes while inheritance.
+
+ A base class contain one function and it contains the definition.
+
+Derived also have same function signature but different  definition 
+is called as Function Overriding.
+
+
+```cs
+ class Base1
+    {
+        public virtual void fun1()
+        {
+            Console.WriteLine(" I am Fun1 of BASE ");
+        }
+    }
+    class Derived : Base1
+    {
+        public override void fun1()
+        {
+            base.fun1();
+            Console.WriteLine("I am Fun1 from Derived");
+        }
+    }
+    class FunctionOverloading_Demo
+    {
+        static void Main()
+        {
+            Derived o1 = new Derived();
+            o1.fun1();
+            Console.ReadLine();
+        }
+    }
+}
+```
+====================================================================
+Example for Function overriding 
+-----------------------------------
+ ```cs
+ public class Payment
+ {
+     public virtual void ProcessPayment()
+     {
+         Console.WriteLine("Genric Payment Processed");
+     }
+ }
+
+
+ public class LoanPayment : Payment
+ {
+     public override void ProcessPayment()
+     {
+
+         Console.WriteLine("Loan Payment Processed");
+         base.ProcessPayment();
+     }
+ }
+
+ public class UpiPayment : Payment
+ {
+     public override void ProcessPayment()
+     {
+         Console.WriteLine("Upi Payment Processed");
+         base.ProcessPayment();
+     }
+ }
+```
+program.cs
+---------
+```cs
+UpiPayment upiPayment = new UpiPayment();
+upiPayment.ProcessPayment();
+
+LoanPayment payment=new LoanPayment();
+payment.ProcessPayment();
+Console.ReadLine();
+```
