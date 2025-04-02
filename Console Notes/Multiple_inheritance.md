@@ -358,3 +358,39 @@ LoanPayment payment=new LoanPayment();
 payment.ProcessPayment();
 Console.ReadLine();
 ```
+
+
+# Method Hiding
+Method Hiding occurs when a method in a derived class has the same name as a method in the base class, but instead of overriding it, it hides it using the new keyword.
+
+It doesn’t replace the base method.
+
+The base method is still accessible through a base class reference.
+
+It's different from method overriding, which uses virtual and override.
+
+```cs
+Base1 base1;
+Derived1 derived1;
+base1 = new Base1();
+base1.Sample();
+derived1 = new Derived1();  
+derived1.Sample();
+base1= new Derived1();
+base1.Sample();
+Console.ReadLine();
+//derived1 = new Base1();
+//derived1.Sample();
+
+       
+    
+public class Base1
+{
+    public void Sample() => Console.WriteLine("Sample from Base");
+}
+
+public class Derived1 : Base1
+{
+    public new void Sample() => Console.WriteLine("Sample from Derived");
+}
+```
